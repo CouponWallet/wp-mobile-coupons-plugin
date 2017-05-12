@@ -26,10 +26,10 @@ function cw_add_options(){
 
 //adds settings to the cw_settings group
 function cw_register_setting() {
-	register_setting( 'cw_settings', 'api_key', 'cw_sanitize_api_key'); 
+	register_setting( 'cw_settings', 'api_key', 'cw_sanitize_api_key');
 	register_setting( 'cw_settings', 'business_id', 'cw_sanitize_id');
-	register_setting( 'cw_settings', 'locations');  
-} 
+	register_setting( 'cw_settings', 'locations');
+}
 
 if(is_admin()){
 	add_action( 'admin_init', 'cw_register_setting' );
@@ -59,11 +59,11 @@ function coupons_func( $atts ) {
   $my_query = new WP_Query($args);
   if( $my_query->have_posts() ) { ?>
     <div class="coupons"> <?php
-      while ($my_query->have_posts()){ 
+      while ($my_query->have_posts()){
         $my_query->the_post(); ?>
-        <div class="coupon" id="coupon<?php echo get_the_ID(); ?>">      
+        <div class="coupon" id="coupon<?php echo get_the_ID(); ?>">
 	    <!--<div class="title"><?php the_title(); ?></div>-->
-	    <div class="discount"><?php 
+	    <div class="discount"><?php
 			$discount = get_post_meta(get_the_ID(), 'discount', true);
 			$cents = str_pad($discount*100%100, 2, '0', STR_PAD_LEFT);
 			echo floor($discount).'<span class="cents">'.$cents.'</span>'; ?></div>
@@ -104,7 +104,7 @@ add_shortcode( 'coupons', 'coupons_func' );
 
 // ---------  Coupon Post Type  -----------
 function cw_register_mobile_coupon_post_type() {
-  
+
 	//set UI labels
 	$labels = array(
 		"name" 			=> "Coupons",
@@ -161,7 +161,7 @@ function cw_save_coupon_to_cloud($new_status, $old_status, $post){
 	$locations = '';
 	$content = json_decode(get_option('locations'));
 	foreach($content as $key=>$location){
-		$locations = $locations . $location->id_location_id . ','; 
+		$locations = $locations . $location->id_location_id . ',';
 	}
 	$locations = rtrim($locations, ",");
 
@@ -270,7 +270,7 @@ function cw_coupon_meta() {
 	Create New Product
 	</option>
       <option value="82574"<?php
-        if(!empty($product) && $product == 82574){ 
+        if(!empty($product) && $product == 82574){
 	      echo " selected";
         }
       ?>>Fun & Entertainment</option>
@@ -282,7 +282,7 @@ function cw_coupon_meta() {
 
   <!-- <label>Category</label> -->
     <input type="hidden" name="category" value="<?php
-      if(!empty($category)){ 
+      if(!empty($category)){
 	      echo $category;
       } else {
 	      echo 5;
@@ -291,7 +291,7 @@ function cw_coupon_meta() {
 
   <!-- <label>Subcategory</label> -->
     <input type="hidden" name="subcategory" value="<?php
-      if(!empty($subcategory)){ 
+      if(!empty($subcategory)){
 	      echo $subcategory;
       } else {
 	      echo 342;
@@ -300,7 +300,7 @@ function cw_coupon_meta() {
 
   <!--<label>type</label>+--->
     <input type="hidden" name="type" value="<?php
-      if(!empty($type)){ 
+      if(!empty($type)){
 	      echo $type;
       } else {
 	      echo '?';
@@ -309,7 +309,7 @@ function cw_coupon_meta() {
 
   <label>Discount</label>
     <input type="text" name="discount" value="<?php
-      if(!empty($discount)){ 
+      if(!empty($discount)){
 	      echo $discount;
       } else {
 	      echo '0.00';
@@ -318,7 +318,7 @@ function cw_coupon_meta() {
 
   <label>Point of Sale text</label>
     <input type="text" name="pos_text" value="<?php
-      if(!empty($pos_text)){ 
+      if(!empty($pos_text)){
 	      echo $pos_text;
       } else {
 	      echo '';
@@ -328,7 +328,7 @@ function cw_coupon_meta() {
   <!--
   <label>Punches Needed</label>
     <input type="text" name="punches_needed" value="<?php
-      if(!empty($punches_needed)){ 
+      if(!empty($punches_needed)){
 	      echo $punches_needed;
       } else {
 	      echo '';
@@ -338,7 +338,7 @@ function cw_coupon_meta() {
 
   <label>Expiration Date (YYYY-MM-DD)</label>
     <input type="Date" name="expires" value="<?php
-      if(!empty($expires)){ 
+      if(!empty($expires)){
 	      echo $expires;
       } else {
 	      echo '2016-12-31';
@@ -347,7 +347,7 @@ function cw_coupon_meta() {
 
   <!--<label>Sku</label>-->
     <input type="hidden" name="sku" value="<?php
-      if(!empty($sku)){ 
+      if(!empty($sku)){
 	      echo $sku;
       } else {
 	      echo '';
@@ -356,7 +356,7 @@ function cw_coupon_meta() {
 
   <!--<label>Volume</label>-->
     <input type="hidden" name="volume" value="<?php
-      if(!empty($volume)){ 
+      if(!empty($volume)){
 	      echo $volume;
       } else {
 	      echo '';
@@ -365,7 +365,7 @@ function cw_coupon_meta() {
 
   <!--<label>Redeem Style (Normal/No Scan)</label>-->
     <input type="hidden" name="redeem_style" value="<?php
-      if(!empty($redeem_style)){ 
+      if(!empty($redeem_style)){
 	      echo $redeem_style;
       } else {
 	      echo 'Normal';
@@ -374,7 +374,7 @@ function cw_coupon_meta() {
 
   <!--<label>Accepted Businesses</label>-->
     <input type="hidden" name="accepted_businesses" value="<?php
-        if(!empty($accepted_businesses)){ 
+        if(!empty($accepted_businesses)){
 	        echo $accepted_businesses;
         } else {
 	        echo '20169';
@@ -383,7 +383,7 @@ function cw_coupon_meta() {
 
   <!--<label>Accepted Locations</label>-->
     <input type="hidden" name="accepted_locations" value="<?php
-        if(!empty($accepted_locations)){ 
+        if(!empty($accepted_locations)){
 	        echo $accepted_locations;
         } else {
 	        echo '22422';
@@ -392,7 +392,7 @@ function cw_coupon_meta() {
 
   <label>Image</label>
     <input type="text" name="image" value="<?php
-        if(!empty($image)){ 
+        if(!empty($image)){
 	        echo $image;
         } else {
 	        echo '/wp-content/themes/jeepers-theme/images/jeepers.png';
@@ -401,7 +401,7 @@ function cw_coupon_meta() {
 
   <!--<label>url</label>
     <input type="text" name="url" value="<?php
-      if(!empty($url)){ 
+      if(!empty($url)){
 	      echo $url;
       } else {
 	      echo '';
@@ -410,7 +410,7 @@ function cw_coupon_meta() {
 
   <!--<label>Upc</label>
   <input type="text" name="upc" value="<?php
-    if(!empty($upc)){ 
+    if(!empty($upc)){
 	    echo $upc;
     } else {
 	    echo '';
@@ -528,7 +528,7 @@ function cw_add_admin_menu_page(){
 		'manage_options',
 		'cw_settings',
 		'cw_settings_page'
-	);	
+	);
 }
 add_action('admin_menu', 'cw_add_admin_menu_page');
 
@@ -540,7 +540,7 @@ function cw_settings_page(){
 		cw_get_locations();
 	}
 	//$api_key = "1fDtlEz81XfjY9W49JvgsJ2mqK";
-	?> 
+	?>
 	<div class= "wrap">
 	<h2>Coupon Settings</h2>
 		<form action="options.php" method="post"><?php
@@ -549,7 +549,7 @@ function cw_settings_page(){
 			?>
 			<label>API Key</label>
     			<input type="text" name="api_key" value="<?php
-      				if(!empty($api_key)){ 
+      				if(!empty($api_key)){
 	      				echo $api_key;
       				} else {
 	     				 echo '';
@@ -558,7 +558,7 @@ function cw_settings_page(){
 			<br/>
 			<label>Business ID</label>
     			<input type="text" name="business_id" value="<?php
-      				if(!empty($business_id)){ 
+      				if(!empty($business_id)){
 	      				echo $business_id;
       				} else {
 	     				 echo '';
@@ -566,7 +566,7 @@ function cw_settings_page(){
     			?>"/>
 			<br/>
 			<label>Locations Info</label>
-			<?php 
+			<?php
 			$content = json_decode(get_option('locations'));
 			//print_r($content);
 			//echo "<hr/>";
@@ -579,7 +579,7 @@ function cw_settings_page(){
 						echo $location->city . "<br/>";
 						echo $location->state;
 						?>
-					</div> 
+					</div>
 				<?php
 			}
 			submit_button();
@@ -597,7 +597,7 @@ function cw_sanitize_id($id){return filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 function cw_get_locations(){
 	// Make sure cURL is installed before making an API call
     if(function_exists("curl_version")){
-      	$api_url = 'http://partner.sandbox.cw.cm/';
+      	$api_url = 'http://partner.cpw.bz/';
       	$api_key = get_option('api_key');
       	$url = $api_url."?API_KEY=".$api_key."&method=get_business_locations";
 
@@ -610,7 +610,7 @@ function cw_get_locations(){
       	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
       	//curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
 	$content = curl_exec($ch);
-	
+
       	update_option('locations', $content);
       	//$response = curl_getinfo( $ch );
       	curl_close ( $ch );
@@ -618,7 +618,7 @@ function cw_get_locations(){
 	var_dump($content);
 	echo "<br/>";
 
-	
+
 	//die();
     }
 }
