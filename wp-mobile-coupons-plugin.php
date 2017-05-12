@@ -152,7 +152,7 @@ function cw_save_coupon_to_cloud($new_status, $old_status, $post){
   if($_POST['post_type'] == "mobile-coupon" && $new_status == "publish"){
     // Make sure cURL is installed before making an API call
     if(function_exists("curl_version")){
-      $api_url = 'http://partner.sandbox.cw.cm/';
+      $api_url = 'http://partner.cpw.bz/';
       $api_key = get_option('api_key');
       $url = $api_url."?API_KEY=".$api_key."&method=update_coupon";
       $q = get_post_meta($_POST['post_ID'], 'q', true);
